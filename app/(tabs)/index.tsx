@@ -7,12 +7,15 @@ import {
 } from "react-native";
 
 import { router } from "expo-router";
+
 import { lessons } from "../../data/lessons";
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>ArtWorkout</Text>
+      <Text style={styles.title}>
+        ArtWorkout
+      </Text>
 
       <Text style={styles.subtitle}>
         Practice drawing step-by-step
@@ -20,19 +23,30 @@ export default function HomeScreen() {
 
       <FlatList
         data={lessons}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={{ paddingTop: 20 }}
+        keyExtractor={(item) =>
+          item.id.toString()
+        }
+        contentContainerStyle={{
+          paddingTop: 20,
+        }}
         renderItem={({ item }) => (
           <Pressable
             style={styles.card}
-            onPress={() => router.push("/lesson")}
+            onPress={() =>
+              router.push({
+                pathname: "/lesson",
+                params: {
+                  lessonId: item.id,
+                },
+              })
+            }
           >
             <Text style={styles.cardTitle}>
               {item.title}
             </Text>
 
             <Text style={styles.cardText}>
-              {item.category}
+              {item.steps.length} steps
             </Text>
 
             <Text style={styles.level}>
